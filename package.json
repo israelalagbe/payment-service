@@ -1,0 +1,11 @@
+{
+  "name": "payment-service",
+  "version": "1.0.0",
+  "description": "Payment Service",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Israel Alagbe",
+  "license": "MIT"
+}
