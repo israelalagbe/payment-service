@@ -16,7 +16,7 @@ const options: swaggerJsdoc.Options = {
       },
     ],
     components: {
-      schemas: {}, // Define schemas here or import them
+      schemas: {},
     },
   },
   apis: [path.join(__dirname, '../controllers/*.ts'), path.join(__dirname, '../dtos/*.ts'), path.join(__dirname, '../swagger/*.ts')],
