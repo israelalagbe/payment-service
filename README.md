@@ -26,8 +26,21 @@ This project is a payment service simulation application built with Node.js, Exp
 ### API Endpoints
 
 *   `POST /payments`: Create a new payment
+    ```json
+    {
+        "amount": 100.00,
+        "currency": "USD",
+        "paymentMethod": "CARD",
+        "description": "Test payment"
+    }
+    ```
 *   `GET /payments/:id`: Get payment details by ID
 *   `PUT /payments/:id/status`: Update payment status
+    ```json
+    {
+        "status": "COMPLETED"
+    }
+    ```
 
 All endpoints return JSON responses and require appropriate request bodies as documented in the Swagger UI.
 
