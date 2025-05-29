@@ -1,4 +1,4 @@
-## Payment Service Simlation
+## Payment Service Simulation
 
 This project is a payment service simulation application built with Node.js, Express, and TypeScript. It provides REST APIs for payment processing with Swagger documentation.
 
@@ -35,7 +35,7 @@ This project is a payment service simulation application built with Node.js, Exp
     }
     ```
 *   `GET /payments/:id`: Get payment details by ID
-*   `PUT /payments/:id/status`: Update payment status
+*   `PATCH /payments/:id/status`: Update payment status
     ```json
     {
         "status": "COMPLETED"
@@ -47,3 +47,11 @@ All endpoints return JSON responses and require appropriate request bodies as do
 ### API Documentation
 
 API documentation is available via Swagger UI. After starting the application, you can access the documentation at `http://localhost:4000/api-docs`. This documentation provides details on all available endpoints, request/response formats, and authentication methods.
+
+
+### Assumptions and Omissions
+
+*   **In-Memory Data Storage:** This simulation uses in-memory storage for payments. Data is not persisted across application restarts.
+*   **No Database Integration:** There is no actual database integration. Asynchronous operations are simulated using `Promise.resolve()`.
+*   **Security:** Security aspects such as authentication abd authorization are not implemented in this simulation.
+
