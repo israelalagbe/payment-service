@@ -19,6 +19,10 @@ This project is a payment service simulation application built with Node.js, Exp
 2.  Access the API documentation: `http://localhost:4000/api-docs`
 3.  Access the endpoints via a REST client or browser, with the base URL `http://localhost:4000/api`
 
+### Running Tests
+
+1.  Run the tests using: `npm test` or `yarn test`
+
 ### API Endpoints
 
 *   `POST /payments`: Create a new payment
