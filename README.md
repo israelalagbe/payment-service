@@ -17,38 +17,19 @@ This project is a payment service simulation application built with Node.js, Exp
 
 1.  Start the application: `npm start` or `yarn start`
 2.  Access the API documentation: `http://localhost:4000/api-docs`
+3.  Access the endpoints via a REST client or browser, with the base URL `http://localhost:4000/api`
+
+### Running Tests
+
+1.  Run the tests using: `npm test` or `yarn test`
 
 ### API Endpoints
 
-*   `POST /api/payments`: Create a new payment
-*   `GET /api/payments/:id`: Get payment details by ID
-*   `PUT /api/payments/:id/status`: Update payment status
+*   `POST /payments`: Create a new payment
+*   `GET /payments/:id`: Get payment details by ID
+*   `PUT /payments/:id/status`: Update payment status
 
 All endpoints return JSON responses and require appropriate request bodies as documented in the Swagger UI.
-
-### Project Structure
-
-```
-├── README.md
-├── src/
-│   ├── app.ts                # Main application file
-│   ├── controllers/
-│   │   └── payment.controller.ts
-│   ├── services/
-│   │   └── payment.service.ts
-│   ├── exceptions/
-│   │   ├── bad-request.exception.ts
-│   │   └── not-found.exception.ts
-│   ├── utils/
-│   │   ├── logger.ts
-│   │   └── swagger.ts
-│   └── types.ts
-├── test/
-│   └── payment.test.ts
-├── package.json
-├── tsconfig.json
-└── .gitignore
-```
 
 ### API Documentation
 
