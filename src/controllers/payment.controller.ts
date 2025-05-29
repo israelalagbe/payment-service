@@ -1,4 +1,5 @@
 import { JsonController, Post, Get, Put, Param, Body } from 'routing-controllers';
+import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
 import { PaymentService } from '../services/payment.service';
 import { PaymentDetails, PaymentStatus } from '../types';
 import { logger } from '../utils/logger';
@@ -14,6 +15,10 @@ export class PaymentController {
   ) {}
 
   @Post()
+  @OpenAPI({
+    summary: 'Create a new payment',
+    description: 'Creates a new payment with the provided details'
+  })
   async createPayment(@Body() payment: PaymentDetails) {
     try {
       return await this.paymentService.createPayment(payment);
@@ -24,6 +29,10 @@ export class PaymentController {
   }
 
   @Get('/:id')
+  @OpenAPI({
+    summary: 'Get payment by ID',
+    description: 'Returns a payment by its ID'
+  })
   async getPayment(@Param('id') id: string) {
     const payment = await this.paymentService.getPayment(id);
     if (!payment) {
@@ -33,6 +42,10 @@ export class PaymentController {
   }
 
   @Put('/:id/status')
+  @OpenAPI({
+    summary: 'Update payment status',
+    description: 'Updates the status of an existing payment'
+  })
   async updatePaymentStatus(@Param('id') id: string, @Body() { status }: { status: PaymentStatus }) {
     const payment = await this.paymentService.updatePaymentStatus(id, status);
     if (!payment) {
