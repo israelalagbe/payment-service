@@ -9,8 +9,8 @@ This project is a payment service simulation application built with Node.js, Exp
 
 ### Installation
 
-1.  Clone the repository: `git clone <repository-url>`
-2.  Navigate to the project directory: `cd PaymentServiceTest`
+1.  Clone the repository: `git clone https://github.com/israelalagbe/payment-service`
+2.  Navigate to the project directory: `cd payment-service`
 3.  Install dependencies: `npm install` or `yarn install`
 
 ### Usage
@@ -26,8 +26,21 @@ This project is a payment service simulation application built with Node.js, Exp
 ### API Endpoints
 
 *   `POST /payments`: Create a new payment
+    ```json
+    {
+        "amount": 100.00,
+        "currency": "USD",
+        "paymentMethod": "CARD",
+        "description": "Test payment"
+    }
+    ```
 *   `GET /payments/:id`: Get payment details by ID
 *   `PUT /payments/:id/status`: Update payment status
+    ```json
+    {
+        "status": "COMPLETED"
+    }
+    ```
 
 All endpoints return JSON responses and require appropriate request bodies as documented in the Swagger UI.
 
