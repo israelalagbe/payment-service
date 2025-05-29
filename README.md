@@ -54,7 +54,7 @@ Although this project uses in-memory data storage, the following SQL schema coul
 
 ```sql
 CREATE TABLE payments (
-    id VARCHAR(36) PRIMARY KEY,
+    id UUID PRIMARY KEY,
     reference VARCHAR(255) NOT NULL UNIQUE,
     amount DECIMAL(15, 2) NOT NULL,
     currency VARCHAR(3) NOT NULL,
