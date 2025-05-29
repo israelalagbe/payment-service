@@ -1,4 +1,10 @@
-## Payment Service
+# Payment Service
+
+<a href="https://github.com/israelalagbe/payment-service/actions/workflows/ci.yml">
+  <img src="https://github.com/israelalagbe/payment-service/actions/workflows/ci.yml/badge.svg" alt="CI Status" width="100">
+</a>
+<br>
+<br>
 
 This project is a payment service simulation application built with Node.js, Express, and TypeScript. It provides REST APIs for payment processing with Swagger documentation.
 
