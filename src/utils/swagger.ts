@@ -1,4 +1,5 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import * as path from 'path';
 
 const options: swaggerJsdoc.Options = {
   definition: {
@@ -8,13 +9,11 @@ const options: swaggerJsdoc.Options = {
       version: '1.0.0',
       description: 'REST API for Payment Service',
     },
-    servers: [
-      {
-        url: '/api',
-      },
-    ],
+    components: {
+      schemas: {}, // Define schemas here or import them
+    },
   },
-  apis: ['./src/controllers/*.ts', './src/dtos/*.ts'],
+  apis: [path.join(__dirname, '../controllers/*.ts'), path.join(__dirname, '../dtos/*.ts'), path.join(__dirname, '../swagger/*.ts')],
 };
 
 const specs = swaggerJsdoc(options);
