@@ -1,4 +1,4 @@
-## Payment Service Simulation
+## Payment Service
 
 This project is a payment service simulation application built with Node.js, Express, and TypeScript. It provides REST APIs for payment processing with Swagger documentation.
 
@@ -48,6 +48,35 @@ All endpoints return JSON responses and require appropriate request bodies as do
 
 API documentation is available via Swagger UI. After starting the application, you can access the documentation at `http://localhost:4000/api-docs`. This documentation provides details on all available endpoints, request/response formats, and authentication methods.
 
+### SQL Design
+
+Although this project uses in-memory data storage, the following SQL schema could be used for a persistent implementation:
+
+```sql
+CREATE TABLE payments (
+    id VARCHAR(36) PRIMARY KEY,
+    reference VARCHAR(255) NOT NULL UNIQUE,
+    amount DECIMAL(15, 2) NOT NULL,
+    currency VARCHAR(3) NOT NULL,
+    paymentMethod VARCHAR(50) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    description TEXT,
+    metadata JSON,
+    createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+*   `id`: Unique identifier for the payment (UUID).
+*   `reference`: Unique reference for the payment.
+*   `amount`: Payment amount.
+*   `currency`: Currency code (e.g., USD).
+*   `paymentMethod`: Payment method used (e.g., CARD).
+*   `status`: Payment status (e.g., PENDING, COMPLETED).
+*   `description`: Description of the payment.
+*   `metadata`: Additional metadata stored as JSON.
+*   `createdAt`: Timestamp of when the payment was created.
+*   `updatedAt`: Timestamp of when the payment was last updated.
 
 ### Assumptions and Omissions
 
