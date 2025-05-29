@@ -1,25 +1,27 @@
-import { Service } from 'typedi';
-import { Payment } from '../models/payment.model';
-import { PaymentStatus } from '../types';
+import { Service } from "typedi";
+import { Payment } from "../models/payment.model";
+import { PaymentStatus } from "../enums/payment.enum";
 
 export interface IPaymentRepository {
-  create(payment: Omit<Payment, 'id' | 'createdAt' | 'updatedAt' | 'status'>): Promise<Payment>;
+  create(payment: Omit<Payment, "id" | "createdAt" | "updatedAt" | "status">): Promise<Payment>;
   findById(id: string): Promise<Payment | undefined>;
   updateStatus(id: string, status: PaymentStatus): Promise<Payment | undefined>;
 }
 
-@Service('PaymentRepository')
+@Service("PaymentRepository")
 export class PaymentRepository implements IPaymentRepository {
   private payments: Payment[] = [];
 
-  async create(payment: Omit<Payment, 'id' | 'status' | 'createdAt' | 'updatedAt'>): Promise<Payment> {
+  async create(
+    payment: Omit<Payment, "id" | "status" | "createdAt" | "updatedAt">
+  ): Promise<Payment> {
     const newPayment = new Payment({
       reference: payment.reference,
       amount: payment.amount,
       currency: payment.currency,
       paymentMethod: payment.paymentMethod,
       description: payment.description,
-      metadata: payment.metadata
+      metadata: payment.metadata,
     });
 
     this.payments.push(newPayment);
@@ -27,7 +29,7 @@ export class PaymentRepository implements IPaymentRepository {
   }
 
   async findById(id: string): Promise<Payment | undefined> {
-    return this.payments.find(p => p.id === id);
+    return Promise.resolve(this.payments.find((p) => p.id === id));
   }
 
   async updateStatus(id: string, status: PaymentStatus): Promise<Payment | undefined> {
@@ -35,7 +37,7 @@ export class PaymentRepository implements IPaymentRepository {
     if (payment) {
       payment.status = status;
       payment.updatedAt = new Date();
+      return payment;
     }
-    return payment;
   }
 }

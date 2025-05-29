@@ -88,5 +88,12 @@ describe('Payment API Integration Tests', () => {
         .send({ status: 'INVALID_STATUS' })
         .expect(400);
     });
+
+    it('should return 404 for non-existent payment on status update', async () => {
+      await request(app)
+        .patch('/api/payments/non-existent-id/status')
+        .send({ status: PaymentStatus.COMPLETED })
+        .expect(404);
+    });
   }); 
 });

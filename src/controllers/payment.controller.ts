@@ -1,12 +1,11 @@
 import { JsonController, Post, Get, Param, Body, Patch, HttpCode } from "routing-controllers";
-import { OpenAPI } from "routing-controllers-openapi";
 import { PaymentService } from "../services/payment.service";
 import { logger } from "../utils/logger";
 import { NotFoundException } from "../exceptions/not-found.exception";
 import { BadRequestException } from "../exceptions/bad-request.exception";
 import { Service } from "typedi";
 import { CreatePaymentDto, UpdatePaymentStatusDto } from "../dtos/payment.dto";
-import { Stats } from "fs";
+import { Payment } from "../models/payment.model";
 
 @Service()
 @JsonController("/payments")
@@ -15,20 +14,12 @@ export class PaymentController {
 
   @Post()
   @HttpCode(201)
-  @OpenAPI({
-    summary: "Create a new payment",
-    description: "Creates a new payment with the provided details",
-  })
-  async createPayment(@Body() payment: CreatePaymentDto) {
+  async createPayment(@Body() payment: CreatePaymentDto): Promise<Payment> {
     return await this.paymentService.createPayment(payment);
   }
 
   @Get("/:id")
-  @OpenAPI({
-    summary: "Get payment by ID",
-    description: "Returns a payment by its ID",
-  })
-  async getPayment(@Param("id") id: string) {
+  async getPayment(@Param("id") id: string): Promise<Payment> {
     const payment = await this.paymentService.getPayment(id);
     if (!payment) {
       throw new NotFoundException("Payment");
@@ -37,14 +28,10 @@ export class PaymentController {
   }
 
   @Patch("/:id/status")
-  @OpenAPI({
-    summary: "Update payment status",
-    description: "Updates the status of a payment by its ID",
-  })
   async updatePaymentStatus(
     @Param("id") id: string,
     @Body() updateStatusDto: UpdatePaymentStatusDto
-  ) {
+  ): Promise<Payment> {
     const payment = await this.paymentService.updatePaymentStatus(id, updateStatusDto.status);
     if (!payment) {
       throw new NotFoundException("Payment");
