@@ -1,7 +1,6 @@
-import { JsonController, Post, Get, Put, Param, Body } from 'routing-controllers';
-import { OpenAPI, ResponseSchema } from 'routing-controllers-openapi';
+import { JsonController, Post, Get, Param, Body, Patch } from 'routing-controllers';
+import { OpenAPI } from 'routing-controllers-openapi';
 import { PaymentService } from '../services/payment.service';
-import { PaymentDetails, PaymentStatus } from '../types';
 import { logger } from '../utils/logger';
 import { NotFoundException } from '../exceptions/not-found.exception';
 import { BadRequestException } from '../exceptions/bad-request.exception';
@@ -42,7 +41,7 @@ export class PaymentController {
     return payment;
   }
 
-  @Put('/:id/status')
+  @Patch('/:id/status')
   @OpenAPI({
     summary: 'Update payment status',
     description: 'Updates the status of a payment by its ID'
