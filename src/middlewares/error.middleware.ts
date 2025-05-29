@@ -19,10 +19,12 @@ export class GlobalErrorHandler implements ExpressErrorMiddlewareInterface {
       method: request.method
     });
 
-    logger.error({
-      error,
-      path: request.originalUrl,
-      method: request.method
-    });
+    if (status === 500) {
+      logger.error({
+        error,
+        path: request.originalUrl,
+        method: request.method
+      });
+    }
   }
 }

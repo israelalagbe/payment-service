@@ -12,6 +12,7 @@ describe('Payment API Integration Tests', () => {
 
   describe('POST /api/payments', () => {
     it('should create a new payment', async () => {
+      
       const response = await request(app)
         .post('/api/payments')
         .send(mockPaymentData)
@@ -62,7 +63,7 @@ describe('Payment API Integration Tests', () => {
     });
   });
 
-  describe('PUT /api/payments/:id/status', () => {
+  describe('PATCH /api/payments/:id/status', () => {
     let paymentId: string;
 
     beforeEach(async () => {
@@ -74,7 +75,7 @@ describe('Payment API Integration Tests', () => {
 
     it('should update payment status', async () => {
       const response = await request(app)
-        .put(`/api/payments/${paymentId}/status`)
+        .patch(`/api/payments/${paymentId}/status`)
         .send({ status: PaymentStatus.COMPLETED })
         .expect(200);
 
@@ -83,9 +84,9 @@ describe('Payment API Integration Tests', () => {
 
     it('should validate status update', async () => {
       await request(app)
-        .put(`/api/payments/${paymentId}/status`)
+        .patch(`/api/payments/${paymentId}/status`)
         .send({ status: 'INVALID_STATUS' })
         .expect(400);
     });
-  });
+  }); 
 });
