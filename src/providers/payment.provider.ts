@@ -1,4 +1,5 @@
 import { PaymentMethod } from '../enums/payment.enum';
+import { NotFoundException } from '../exceptions/not-found.exception';
 
 export interface PaymentInitializationParams {
   amount: number;
@@ -19,7 +20,7 @@ export abstract class PaymentProvider {
   static getProvider(paymentMethod: PaymentMethod): PaymentProvider {
     const provider = PaymentProvider.providers.find(p => p.paymentMethod === paymentMethod);
     if (!provider) {
-      throw new Error(`Payment method ${paymentMethod} not supported`);
+      throw new NotFoundException(`Payment method ${paymentMethod} not supported`);
     }
     return provider;
   }
