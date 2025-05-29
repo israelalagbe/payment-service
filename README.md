@@ -9,8 +9,8 @@ This project is a payment service simulation application built with Node.js, Exp
 
 ### Installation
 
-1.  Clone the repository: `git clone <repository-url>`
-2.  Navigate to the project directory: `cd PaymentServiceTest`
+1.  Clone the repository: `git clone https://github.com/israelalagbe/payment-service`
+2.  Navigate to the project directory: `cd payment-service`
 3.  Install dependencies: `npm install` or `yarn install`
 
 ### Usage
