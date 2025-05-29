@@ -1,6 +1,6 @@
-## Payment Service Test
+## Payment Service Simlation
 
-This project is a simple payment service test application built with Node.js, Express, and TypeScript. It includes a single endpoint for processing payments and uses `node:test` for testing.
+This project is a payment service simulation application built with Node.js, Express, and TypeScript. It provides REST APIs for payment processing with Swagger documentation.
 
 ### Prerequisites
 
@@ -16,26 +16,40 @@ This project is a simple payment service test application built with Node.js, Ex
 ### Usage
 
 1.  Start the application: `npm start` or `yarn start`
+2.  Access the API documentation: `http://localhost:4000/api-docs`
 
 ### API Endpoints
 
-*   `POST /process-payment`: Processes a payment.  Accepts a JSON payload with payment details (e.g., amount, currency, payment method).  Returns a success or error message.
+*   `POST /api/payments`: Create a new payment
+*   `GET /api/payments/:id`: Get payment details by ID
+*   `PUT /api/payments/:id/status`: Update payment status
 
-### Testing
-
-*   Run tests: `npm test` or `yarn test`
+All endpoints return JSON responses and require appropriate request bodies as documented in the Swagger UI.
 
 ### Project Structure
 
 ```
-├── README.md          # This file
+├── README.md
 ├── src/
-│   ├── app.ts         # Main application file (Express server)
-│   ├── payment.service.ts # Payment processing logic
-│   └── types.ts       # Type definitions
+│   ├── app.ts                # Main application file
+│   ├── controllers/
+│   │   └── payment.controller.ts
+│   ├── services/
+│   │   └── payment.service.ts
+│   ├── exceptions/
+│   │   ├── bad-request.exception.ts
+│   │   └── not-found.exception.ts
+│   ├── utils/
+│   │   ├── logger.ts
+│   │   └── swagger.ts
+│   └── types.ts
 ├── test/
-│   └── payment.test.ts  # Test file for payment processing
-├── package.json       # Project dependencies and scripts
-├── tsconfig.json      # TypeScript configuration
-└── .gitignore         # Specifies intentionally untracked files that Git should ignore
+│   └── payment.test.ts
+├── package.json
+├── tsconfig.json
+└── .gitignore
 ```
+
+### API Documentation
+
+API documentation is available via Swagger UI. After starting the application, you can access the documentation at `http://localhost:4000/api-docs`. This documentation provides details on all available endpoints, request/response formats, and authentication methods.
