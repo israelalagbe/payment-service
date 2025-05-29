@@ -3,12 +3,12 @@ import { Payment } from '../models/payment.model';
 import { PaymentStatus } from '../types';
 
 export interface IPaymentRepository {
-  create(payment: Omit<Payment, 'id' | 'createdAt' | 'updatedAt'>): Promise<Payment>;
+  create(payment: Omit<Payment, 'id' | 'createdAt' | 'updatedAt' | 'status'>): Promise<Payment>;
   findById(id: string): Promise<Payment | undefined>;
   updateStatus(id: string, status: PaymentStatus): Promise<Payment | undefined>;
 }
 
-@Service()
+@Service('PaymentRepository')
 export class PaymentRepository implements IPaymentRepository {
   private payments: Payment[] = [];
 

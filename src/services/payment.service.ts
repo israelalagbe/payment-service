@@ -1,18 +1,17 @@
-import { Service } from 'typedi';
+import { Service, Inject } from 'typedi';
 import { PaymentDetails, PaymentStatus } from '../types';
 import { IPaymentRepository } from '../repositories/payment.repository';
 
 @Service()
 export class PaymentService {
   constructor(
-    private readonly paymentRepository: IPaymentRepository
+    @Inject('PaymentRepository') private readonly paymentRepository: IPaymentRepository
   ) {}
 
   async createPayment(payment: PaymentDetails) {
     const transaction = await this.paymentRepository.create({
       ...payment,
       reference: this.generateReference(),
-      status: PaymentStatus.PENDING,
     });
     return transaction;
   }

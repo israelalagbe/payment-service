@@ -6,6 +6,7 @@ import { logger } from '../utils/logger';
 import { NotFoundException } from '../exceptions/not-found.exception';
 import { BadRequestException } from '../exceptions/bad-request.exception';
 import { Service } from 'typedi';
+import { CreatePaymentDto, UpdatePaymentStatusDto } from '../dtos/payment.dto';
 
 @Service()
 @JsonController('/payments')
@@ -19,12 +20,12 @@ export class PaymentController {
     summary: 'Create a new payment',
     description: 'Creates a new payment with the provided details'
   })
-  async createPayment(@Body() payment: PaymentDetails) {
+  async createPayment(@Body() payment: CreatePaymentDto) {
     try {
       return await this.paymentService.createPayment(payment);
     } catch (error) {
       logger.error({ error }, 'Failed to create payment');
-      throw new BadRequestException('Failed to create payment');
+      throw new BadRequestException((error as Error).message || 'Failed to create payment');
     }
   }
 
@@ -44,10 +45,13 @@ export class PaymentController {
   @Put('/:id/status')
   @OpenAPI({
     summary: 'Update payment status',
-    description: 'Updates the status of an existing payment'
+    description: 'Updates the status of a payment by its ID'
   })
-  async updatePaymentStatus(@Param('id') id: string, @Body() { status }: { status: PaymentStatus }) {
-    const payment = await this.paymentService.updatePaymentStatus(id, status);
+  async updatePaymentStatus(
+    @Param('id') id: string, 
+    @Body() updateStatusDto: UpdatePaymentStatusDto
+  ) {
+    const payment = await this.paymentService.updatePaymentStatus(id, updateStatusDto.status);
     if (!payment) {
       throw new NotFoundException('Payment');
     }
