@@ -9,6 +9,12 @@ const options: swaggerJsdoc.Options = {
       version: '1.0.0',
       description: 'REST API for Payment Service',
     },
+    servers: [
+      {
+        url: '/api',
+        description: 'Base URL for the API',
+      },
+    ],
     components: {
       schemas: {}, // Define schemas here or import them
     },
