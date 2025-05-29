@@ -1,23 +1,27 @@
-import express, { Request, Response } from 'express';
-import { processPayment } from './payment.service';
-import { PaymentDetails } from './types';
+import 'reflect-metadata';
+import express from 'express';
+import { useExpressServer } from 'routing-controllers';
+import { PaymentController } from './controllers/payment.service';
+import { logger } from './utils/logger';
 
 const app = express();
 const port = 4000;
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.post('/process-payment', (req: Request, res: Response) => {
-  const paymentDetails: PaymentDetails = req.body;
-
-  try {
-    const result = processPayment(paymentDetails);
-    res.status(200).json({ message: 'Payment processed successfully', result });
-  } catch (error: any) {
-    res.status(400).json({ message: 'Payment processing failed', error: error.message });
-  }
+useExpressServer(app, {
+  cors: true,
+  controllers: [PaymentController],
+  routePrefix: '/',
+  defaults: {
+    nullResultCode: 404,
+    undefinedResultCode: 204,
+  },
+  classTransformer: true,
+  validation: true,
 });
 
 app.listen(port, () => {
-  console.log(`Server listening at http://localhost:${port}`);
+  logger.info(`Server listening at http://localhost:${port}`);
 });

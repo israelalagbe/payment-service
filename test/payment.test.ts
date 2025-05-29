@@ -1,4 +1,4 @@
-import { processPayment } from '../src/payment.service';
+import { processPayment } from '../src/controllers/payment.service';
 
 describe('processPayment', () => {
   it('should succeed with valid amount', () => {
