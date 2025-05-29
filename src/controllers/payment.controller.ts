@@ -1,12 +1,12 @@
 import { JsonController, Post, Get, Param, Body, Patch, HttpCode } from "routing-controllers";
-import { OpenAPI } from "routing-controllers-openapi";
+import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { PaymentService } from "../services/payment.service";
 import { logger } from "../utils/logger";
 import { NotFoundException } from "../exceptions/not-found.exception";
 import { BadRequestException } from "../exceptions/bad-request.exception";
 import { Service } from "typedi";
 import { CreatePaymentDto, UpdatePaymentStatusDto } from "../dtos/payment.dto";
-import { Stats } from "fs";
+import { Payment } from "../models/payment.model";
 
 @Service()
 @JsonController("/payments")
@@ -19,7 +19,8 @@ export class PaymentController {
     summary: "Create a new payment",
     description: "Creates a new payment with the provided details",
   })
-  async createPayment(@Body() payment: CreatePaymentDto) {
+  @ResponseSchema(Payment, { statusCode: 201, description: "Payment created" })
+  async createPayment(@Body() payment: CreatePaymentDto): Promise<Payment> {
     return await this.paymentService.createPayment(payment);
   }
 
@@ -28,7 +29,8 @@ export class PaymentController {
     summary: "Get payment by ID",
     description: "Returns a payment by its ID",
   })
-  async getPayment(@Param("id") id: string) {
+  @ResponseSchema(Payment, { description: "Payment details" })
+  async getPayment(@Param("id") id: string): Promise<Payment> {
     const payment = await this.paymentService.getPayment(id);
     if (!payment) {
       throw new NotFoundException("Payment");
@@ -41,10 +43,11 @@ export class PaymentController {
     summary: "Update payment status",
     description: "Updates the status of a payment by its ID",
   })
+  @ResponseSchema(Payment, { description: "Payment status updated" })
   async updatePaymentStatus(
     @Param("id") id: string,
     @Body() updateStatusDto: UpdatePaymentStatusDto
-  ) {
+  ): Promise<Payment> {
     const payment = await this.paymentService.updatePaymentStatus(id, updateStatusDto.status);
     if (!payment) {
       throw new NotFoundException("Payment");

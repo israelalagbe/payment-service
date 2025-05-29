@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { PaymentStatus } from '../types';
+import { PaymentStatus } from '../enums/payment.enum';
 
 interface PaymentConstructorParams {
   reference: string;

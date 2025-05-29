@@ -1,6 +1,5 @@
 import { IsString, IsNumber, IsEnum, IsNotEmpty, Min, Length } from 'class-validator';
-import { PaymentMethod } from '../enums/payment.enum';
-import { PaymentStatus } from '../types';
+import { PaymentMethod, PaymentStatus } from '../enums/payment.enum';
 
 
 export class CreatePaymentDto {

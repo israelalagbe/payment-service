@@ -1,6 +1,8 @@
 import { Service, Inject } from 'typedi';
-import { PaymentDetails, PaymentStatus } from '../types';
+import { Payment } from '../models/payment.model';
 import { IPaymentRepository } from '../repositories/payment.repository';
+import { PaymentStatus } from '../enums/payment.enum';
+import { CreatePaymentDto } from '../dtos/payment.dto';
 
 @Service()
 export class PaymentService {
@@ -8,7 +10,7 @@ export class PaymentService {
     @Inject('PaymentRepository') private readonly paymentRepository: IPaymentRepository
   ) {}
 
-  async createPayment(payment: PaymentDetails) {
+  async createPayment(payment: CreatePaymentDto): Promise<Payment> {
     const transaction = await this.paymentRepository.create({
       ...payment,
       reference: this.generateReference(),
@@ -17,11 +19,11 @@ export class PaymentService {
     return transaction;
   }
 
-  async getPayment(id: string) {
+  async getPayment(id: string): Promise<Payment | undefined> {
     return this.paymentRepository.findById(id);
   }
 
-  async updatePaymentStatus(id: string, status: PaymentStatus) {
+  async updatePaymentStatus(id: string, status: PaymentStatus): Promise<Payment | undefined> {
     return this.paymentRepository.updateStatus(id, status);
   }
 

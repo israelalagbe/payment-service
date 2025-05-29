@@ -1,10 +1,3 @@
-export enum PaymentStatus {
-  PENDING = 'PENDING',
-  PROCESSING = 'PROCESSING',
-  COMPLETED = 'COMPLETED',
-  FAILED = 'FAILED'
-}
-
 export interface PaymentDetails {
   amount: number;
   currency: string;
