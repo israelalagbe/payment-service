@@ -1,4 +1,4 @@
-## Payment Service
+## Payment Service Simlation
 
 This project is a payment service simulation application built with Node.js, Express, and TypeScript. It provides REST APIs for payment processing with Swagger documentation.
 
