@@ -1,5 +1,4 @@
 import { JsonController, Post, Get, Param, Body, Patch, HttpCode } from "routing-controllers";
-import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
 import { PaymentService } from "../services/payment.service";
 import { logger } from "../utils/logger";
 import { NotFoundException } from "../exceptions/not-found.exception";
@@ -15,16 +14,11 @@ export class PaymentController {
 
   @Post()
   @HttpCode(201)
-  @OpenAPI({summary: "Create a new payment", description: "Creates a new payment with the provided details"})
-  @ResponseSchema(Payment, { statusCode: 201, description: "Payment created" })
   async createPayment(@Body() payment: CreatePaymentDto): Promise<Payment> {
     return await this.paymentService.createPayment(payment);
   }
 
-
   @Get("/:id")
-  @OpenAPI({summary: "Get payment by ID", description: "Returns a payment by its ID"})
-  @ResponseSchema(Payment, { description: "Payment details" })
   async getPayment(@Param("id") id: string): Promise<Payment> {
     const payment = await this.paymentService.getPayment(id);
     if (!payment) {
@@ -34,8 +28,6 @@ export class PaymentController {
   }
 
   @Patch("/:id/status")
-  @OpenAPI({ summary: "Update payment status", description: "Updates the status of a payment by its ID"})
-  @ResponseSchema(Payment, { description: "Payment status updated" })
   async updatePaymentStatus(
     @Param("id") id: string,
     @Body() updateStatusDto: UpdatePaymentStatusDto

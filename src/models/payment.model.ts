@@ -1,11 +1,11 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Currency, PaymentStatus } from '../enums/payment.enum';
+import { Currency, PaymentStatus, PaymentMethod } from '../enums/payment.enum';
 
 interface PaymentConstructorParams {
   reference: string;
   amount: number;
   currency: Currency;
-  paymentMethod: string;
+  paymentMethod: PaymentMethod;
   description?: string;
   metadata?: Record<string, any>;
 }
@@ -15,7 +15,7 @@ export class Payment {
   reference: string;
   amount: number;
   currency: Currency;
-  paymentMethod: string;
+  paymentMethod: PaymentMethod;
   status: PaymentStatus;
   description?: string;
   metadata?: Record<string, any>;
